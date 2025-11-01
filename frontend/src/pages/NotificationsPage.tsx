@@ -30,7 +30,7 @@ interface Interest {
 }
 
 const NotificationsPage: React.FC = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([
+  const [notifications] = useState<Notification[]>([
     { id: 1, type: 'interest', name: 'Priya Sharma', message: 'sent you an interest', time: '2 hours ago', avatar: 'https://images.unsplash.com/photo-1649433658557-54cf58577c68?w=100&q=80', unread: true },
     { id: 2, type: 'view', name: 'Rahul Verma', message: 'viewed your profile', time: '5 hours ago', avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80', unread: true },
     { id: 3, type: 'message', name: 'Ananya Patel', message: 'sent you a message', time: '1 day ago', avatar: 'https://images.pexels.com/photos/14758778/pexels-photo-14758778.jpeg?w=100&q=80', unread: false },
@@ -42,7 +42,7 @@ const NotificationsPage: React.FC = () => {
     { id: 2, name: 'Sneha Reddy', age: 25, location: 'Hyderabad', message: 'Hi! Your profile looks interesting.', avatar: 'https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=100&q=80', matchScore: 88 },
   ]);
 
-  const getIcon = (type: NotificationType): JSX.Element => {
+  const getIcon = (type: NotificationType): React.ReactElement => {
     switch (type) {
       case 'interest': return <Heart className="h-5 w-5 text-red-600" />;
       case 'view': return <Eye className="h-5 w-5 text-blue-500" />;
