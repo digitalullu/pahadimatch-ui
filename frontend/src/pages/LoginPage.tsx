@@ -5,7 +5,6 @@ import { PhoneRequest } from '@/types/login';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
