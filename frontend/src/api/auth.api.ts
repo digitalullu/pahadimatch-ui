@@ -1,7 +1,7 @@
 import { AuthResponse, PhoneResponse, PhoneRequest } from '@/types/login';
 import axiosInstance from './axiosInstance';
 
-const API_URL = import.meta.env.VITE_API_DEV_URL || 'https://api.dev.pahadimatch.com/v1';
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://api.dev.pahadimatch.com/v1';
 
 export const sendOtp = async (payload: PhoneRequest) => {
   const res = await axiosInstance.post<PhoneResponse>(
