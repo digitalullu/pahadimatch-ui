@@ -1,56 +1,167 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { createUpdateProfile } from '@/api/profile.api';
-import { ProfileData } from '@/types/profile';
 import { toast } from '@/hooks/use-toast';
 import useAuthStore from '@/store/useAuthStore';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Progress } from '@/components/ui/progress';
 import { Check, ChevronRight, ChevronLeft, User, MapPin, Briefcase, Heart } from 'lucide-react';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 const ProfileCreationStepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<ProfileData>({});
+  const [formData, setFormData] = useState<any>({
+    // Step 1
+    name: '',
+    date_of_birth: '',
+    gender: '',
+    profile_by: 'self',
+    marital_status: '',
+    time_of_birth: '',
+    place_of_birth: '',
+    
+    // Step 2
+    bio: '',
+    about: '',
+    mother_tongue: '',
+    known_languages: '',
+    height: '',
+    weight: '',
+    body_type: '',
+    complexion: '',
+    eye_color: '',
+    hair_color: '',
+    disability: 'normal',
+    blood_group: '',
+    
+    // Step 3
+    current_city: '',
+    hometown: '',
+    state_id: '',
+    country_id: 1,
+    
+    // Step 4
+    education_id: '',
+    occupation_id: '',
+    income: ''
+  });
+
   const navigate = useNavigate();
   const { updateUser } = useAuthStore();
 
-  const createProfileMutation = useMutation({
-    mutationFn: createUpdateProfile,
-    onSuccess: () => {
-      updateUser({ profileComplete: true });
-      toast({
-        title: 'Profile Created!',
-        description: 'Your profile has been created successfully',
-      });
-      navigate('/profiles');
-    },
-    onError: (err: any) => {
-      toast({
-        title: 'Error',
-        description: err.response?.data?.message || 'Failed to create profile',
-        variant: 'destructive',
-      });
+  const steps = [
+    { number: 1, title: 'Basic Info', icon: User },
+    { number: 2, title: 'Physical & Bio', icon: Heart },
+    { number: 3, title: 'Location', icon: MapPin },
+    { number: 4, title: 'Career', icon: Briefcase },
+  ];
+
+  // API mutations for each step
+  const step1Mutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await axios.post(`${API_URL}/api/profile/create/`, data);
+      return response.data;
     },
   });
 
-  const steps = [
-    { number: 1, title: 'Basic Info', icon: User },
-    { number: 2, title: 'Location', icon: MapPin },
-    { number: 3, title: 'Career', icon: Briefcase },
-    { number: 4, title: 'About You', icon: Heart },
-  ];
+  const step2Mutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await axios.post(`${API_URL}/api/profile/basic-info`, data);
+      return response.data;
+    },
+  });
 
-  const handleNext = () => {
+  const step3Mutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await axios.post(`${API_URL}/api/profile/location`, data);
+      return response.data;
+    },
+  });
+
+  const step4Mutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await axios.post(`${API_URL}/api/profile/education-occupation`, data);
+      return response.data;
+    },
+  });
+
+  const handleNext = async () => {
     if (currentStep < 4) {
-      setCurrentStep(currentStep + 1);
+      // Submit current step data
+      try {
+        if (currentStep === 1) {
+          await step1Mutation.mutateAsync({
+            name: formData.name,
+            date_of_birth: formData.date_of_birth,
+            gender: formData.gender,
+            profile_by: formData.profile_by,
+            marital_status: formData.marital_status,
+            password: '12345678', // Temp password
+            password_confirmation: '12345678',
+            time_of_birth: formData.time_of_birth,
+            place_of_birth: formData.place_of_birth
+          });
+          toast({ title: 'Success', description: 'Basic info saved!' });
+        } else if (currentStep === 2) {
+          await step2Mutation.mutateAsync({
+            bio: formData.bio,
+            about: formData.about,
+            mother_tongue: formData.mother_tongue,
+            known_languages: formData.known_languages,
+            height: parseFloat(formData.height) || 0,
+            weight: parseFloat(formData.weight) || 0,
+            body_type: formData.body_type,
+            complexion: formData.complexion,
+            eye_color: formData.eye_color,
+            hair_color: formData.hair_color,
+            disability: formData.disability,
+            blood_group: formData.blood_group
+          });
+          toast({ title: 'Success', description: 'Physical details saved!' });
+        } else if (currentStep === 3) {
+          await step3Mutation.mutateAsync({
+            current_city: formData.current_city,
+            hometown: formData.hometown,
+            state_id: parseInt(formData.state_id) || 28,
+            country_id: formData.country_id
+          });
+          toast({ title: 'Success', description: 'Location saved!' });
+        }
+        setCurrentStep(currentStep + 1);
+      } catch (error: any) {
+        toast({
+          title: 'Error',
+          description: error.response?.data?.message || 'Failed to save data',
+          variant: 'destructive',
+        });
+      }
     } else {
-      createProfileMutation.mutate(formData);
+      // Final step
+      try {
+        await step4Mutation.mutateAsync({
+          education_id: parseInt(formData.education_id) || 3,
+          occupation_id: parseInt(formData.occupation_id) || 11,
+          income: formData.income
+        });
+        
+        updateUser({ profileComplete: true });
+        toast({
+          title: 'Profile Complete!',
+          description: 'Your profile has been created successfully',
+        });
+        navigate('/profiles');
+      } catch (error: any) {
+        toast({
+          title: 'Error',
+          description: error.response?.data?.message || 'Failed to complete profile',
+          variant: 'destructive',
+        });
+      }
     }
   };
 
@@ -67,69 +178,108 @@ const ProfileCreationStepper = () => {
   const isStepValid = () => {
     switch (currentStep) {
       case 1:
-        return formData.name && formData.dateOfBirth && formData.gender;
+        return formData.name && formData.date_of_birth && formData.gender && formData.marital_status;
       case 2:
-        return formData.city && formData.state;
+        return formData.bio && formData.height;
       case 3:
-        return formData.education && formData.occupation;
+        return formData.current_city && formData.hometown;
       case 4:
-        return formData.bio;
+        return formData.income;
       default:
         return false;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 py-8 px-4">
-      <div className="max-w-3xl mx-auto">
+    <div 
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(to bottom right, #fff1f2, #fce7f3, #ffedd5)',
+        padding: '32px 16px',
+      }}
+    >
+      <div style={{ maxWidth: '768px', margin: '0 auto' }}>
         {/* Progress Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+        <div style={{ marginBottom: '32px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <React.Fragment key={step.number}>
-                  <div className="flex flex-col items-center">
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                        currentStep > step.number
-                          ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white'
-                          : currentStep === step.number
-                          ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white ring-4 ring-rose-200'
-                          : 'bg-gray-200 text-gray-400'
-                      }`}
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: currentStep >= step.number
+                          ? 'linear-gradient(to right, #f43f5e, #ec4899)'
+                          : '#e5e7eb',
+                        color: currentStep >= step.number ? 'white' : '#9ca3af',
+                        boxShadow: currentStep === step.number ? '0 0 0 4px rgba(244, 63, 94, 0.2)' : 'none',
+                        transition: 'all 0.3s'
+                      }}
                     >
                       {currentStep > step.number ? (
-                        <Check className="h-6 w-6" />
+                        <Check style={{ height: '24px', width: '24px' }} />
                       ) : (
-                        <Icon className="h-6 w-6" />
+                        <Icon style={{ height: '24px', width: '24px' }} />
                       )}
                     </div>
-                    <span className="text-xs mt-2 font-medium text-gray-600">{step.title}</span>
+                    <span style={{ fontSize: '12px', marginTop: '8px', fontWeight: '500', color: '#4b5563' }}>
+                      {step.title}
+                    </span>
                   </div>
                   {index < steps.length - 1 && (
                     <div
-                      className={`flex-1 h-1 mx-2 rounded ${
-                        currentStep > step.number ? 'bg-gradient-to-r from-rose-500 to-pink-500' : 'bg-gray-200'
-                      }`}
+                      style={{
+                        flex: 1,
+                        height: '4px',
+                        margin: '0 8px',
+                        borderRadius: '2px',
+                        background: currentStep > step.number
+                          ? 'linear-gradient(to right, #f43f5e, #ec4899)'
+                          : '#e5e7eb',
+                      }}
                     />
                   )}
                 </React.Fragment>
               );
             })}
           </div>
-          <Progress value={(currentStep / 4) * 100} className="h-2" />
+          
+          {/* Progress Bar */}
+          <div style={{ width: '100%', height: '8px', backgroundColor: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
+            <div
+              style={{
+                height: '100%',
+                width: `${(currentStep / 4) * 100}%`,
+                background: 'linear-gradient(to right, #f43f5e, #ec4899)',
+                transition: 'width 0.3s'
+              }}
+            />
+          </div>
         </div>
 
         {/* Form Card */}
-        <Card className="p-8 shadow-2xl">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        <div
+          style={{
+            padding: '32px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            borderRadius: '16px',
+            backgroundColor: 'white',
+          }}
+        >
+          <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1f2937', marginBottom: '24px' }}>
             {steps[currentStep - 1].title}
           </h2>
 
           {/* Step 1: Basic Info */}
           {currentStep === 1 && (
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <Label htmlFor="name">Full Name *</Label>
                 <Input
@@ -137,15 +287,17 @@ const ProfileCreationStepper = () => {
                   placeholder="Enter your full name"
                   value={formData.name || ''}
                   onChange={(e) => updateFormData('name', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
               <div>
-                <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                <Label htmlFor="date_of_birth">Date of Birth *</Label>
                 <Input
-                  id="dateOfBirth"
+                  id="date_of_birth"
                   type="date"
-                  value={formData.dateOfBirth || ''}
-                  onChange={(e) => updateFormData('dateOfBirth', e.target.value)}
+                  value={formData.date_of_birth || ''}
+                  onChange={(e) => updateFormData('date_of_birth', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
               <div>
@@ -154,7 +306,7 @@ const ProfileCreationStepper = () => {
                   value={formData.gender}
                   onValueChange={(value) => updateFormData('gender', value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ marginTop: '8px' }}>
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -165,203 +317,261 @@ const ProfileCreationStepper = () => {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="height">Height</Label>
-                <Input
-                  id="height"
-                  placeholder="e.g., 5 feet 8 inches"
-                  value={formData.height || ''}
-                  onChange={(e) => updateFormData('height', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="maritalStatus">Marital Status</Label>
+                <Label htmlFor="marital_status">Marital Status *</Label>
                 <Select
-                  value={formData.maritalStatus}
-                  onValueChange={(value) => updateFormData('maritalStatus', value)}
+                  value={formData.marital_status}
+                  onValueChange={(value) => updateFormData('marital_status', value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ marginTop: '8px' }}>
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="never_married">Never Married</SelectItem>
+                    <SelectItem value="unmarried">Unmarried</SelectItem>
                     <SelectItem value="divorced">Divorced</SelectItem>
                     <SelectItem value="widowed">Widowed</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <Label htmlFor="time_of_birth">Time of Birth</Label>
+                <Input
+                  id="time_of_birth"
+                  type="time"
+                  value={formData.time_of_birth || ''}
+                  onChange={(e) => updateFormData('time_of_birth', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                />
+              </div>
+              <div>
+                <Label htmlFor="place_of_birth">Place of Birth</Label>
+                <Input
+                  id="place_of_birth"
+                  placeholder="e.g., Badasi Grant"
+                  value={formData.place_of_birth || ''}
+                  onChange={(e) => updateFormData('place_of_birth', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                />
+              </div>
             </div>
           )}
 
-          {/* Step 2: Location & Background */}
+          {/* Step 2: Physical & Bio */}
           {currentStep === 2 && (
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <Label htmlFor="city">City *</Label>
-                <Input
-                  id="city"
-                  placeholder="Enter your city"
-                  value={formData.city || ''}
-                  onChange={(e) => updateFormData('city', e.target.value)}
+                <Label htmlFor="bio">Bio *</Label>
+                <Textarea
+                  id="bio"
+                  placeholder="Brief intro about yourself"
+                  value={formData.bio || ''}
+                  onChange={(e) => updateFormData('bio', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                  rows={3}
                 />
               </div>
               <div>
-                <Label htmlFor="state">State *</Label>
+                <Label htmlFor="about">About</Label>
+                <Textarea
+                  id="about"
+                  placeholder="Tell more about yourself"
+                  value={formData.about || ''}
+                  onChange={(e) => updateFormData('about', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                  rows={4}
+                />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div>
+                  <Label htmlFor="height">Height (ft) *</Label>
+                  <Input
+                    id="height"
+                    type="number"
+                    step="0.1"
+                    placeholder="5.9"
+                    value={formData.height || ''}
+                    onChange={(e) => updateFormData('height', e.target.value)}
+                    style={{ marginTop: '8px' }}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="weight">Weight (kg)</Label>
+                  <Input
+                    id="weight"
+                    type="number"
+                    placeholder="69"
+                    value={formData.weight || ''}
+                    onChange={(e) => updateFormData('weight', e.target.value)}
+                    style={{ marginTop: '8px' }}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="mother_tongue">Mother Tongue</Label>
                 <Input
-                  id="state"
-                  placeholder="Enter your state"
-                  value={formData.state || ''}
-                  onChange={(e) => updateFormData('state', e.target.value)}
+                  id="mother_tongue"
+                  placeholder="Hindi"
+                  value={formData.mother_tongue || ''}
+                  onChange={(e) => updateFormData('mother_tongue', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
               <div>
-                <Label htmlFor="country">Country</Label>
+                <Label htmlFor="known_languages">Known Languages</Label>
                 <Input
-                  id="country"
-                  placeholder="Enter your country"
-                  value={formData.country || ''}
-                  onChange={(e) => updateFormData('country', e.target.value)}
+                  id="known_languages"
+                  placeholder="Hindi, English, Spanish"
+                  value={formData.known_languages || ''}
+                  onChange={(e) => updateFormData('known_languages', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
-              <div>
-                <Label htmlFor="religion">Religion</Label>
-                <Input
-                  id="religion"
-                  placeholder="Enter your religion"
-                  value={formData.religion || ''}
-                  onChange={(e) => updateFormData('religion', e.target.value)}
-                />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div>
+                  <Label htmlFor="body_type">Body Type</Label>
+                  <Select
+                    value={formData.body_type}
+                    onValueChange={(value) => updateFormData('body_type', value)}
+                  >
+                    <SelectTrigger style={{ marginTop: '8px' }}>
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="slim">Slim</SelectItem>
+                      <SelectItem value="average">Average</SelectItem>
+                      <SelectItem value="athletic">Athletic</SelectItem>
+                      <SelectItem value="heavy">Heavy</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="complexion">Complexion</Label>
+                  <Select
+                    value={formData.complexion}
+                    onValueChange={(value) => updateFormData('complexion', value)}
+                  >
+                    <SelectTrigger style={{ marginTop: '8px' }}>
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="fair">Fair</SelectItem>
+                      <SelectItem value="wheatish">Wheatish</SelectItem>
+                      <SelectItem value="dark">Dark</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div>
+                  <Label htmlFor="eye_color">Eye Color</Label>
+                  <Input
+                    id="eye_color"
+                    placeholder="Black"
+                    value={formData.eye_color || ''}
+                    onChange={(e) => updateFormData('eye_color', e.target.value)}
+                    style={{ marginTop: '8px' }}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="hair_color">Hair Color</Label>
+                  <Input
+                    id="hair_color"
+                    placeholder="Black"
+                    value={formData.hair_color || ''}
+                    onChange={(e) => updateFormData('hair_color', e.target.value)}
+                    style={{ marginTop: '8px' }}
+                  />
+                </div>
               </div>
               <div>
-                <Label htmlFor="caste">Caste</Label>
+                <Label htmlFor="blood_group">Blood Group</Label>
                 <Input
-                  id="caste"
-                  placeholder="Enter your caste"
-                  value={formData.caste || ''}
-                  onChange={(e) => updateFormData('caste', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="motherTongue">Mother Tongue</Label>
-                <Input
-                  id="motherTongue"
-                  placeholder="Enter your mother tongue"
-                  value={formData.motherTongue || ''}
-                  onChange={(e) => updateFormData('motherTongue', e.target.value)}
+                  id="blood_group"
+                  placeholder="B-"
+                  value={formData.blood_group || ''}
+                  onChange={(e) => updateFormData('blood_group', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
             </div>
           )}
 
-          {/* Step 3: Education & Career */}
+          {/* Step 3: Location */}
           {currentStep === 3 && (
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <Label htmlFor="education">Education *</Label>
+                <Label htmlFor="current_city">Current City *</Label>
                 <Input
-                  id="education"
-                  placeholder="e.g., B.Tech, MBA"
-                  value={formData.education || ''}
-                  onChange={(e) => updateFormData('education', e.target.value)}
+                  id="current_city"
+                  placeholder="Dehradun"
+                  value={formData.current_city || ''}
+                  onChange={(e) => updateFormData('current_city', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
               <div>
-                <Label htmlFor="occupation">Occupation *</Label>
+                <Label htmlFor="hometown">Hometown *</Label>
                 <Input
-                  id="occupation"
-                  placeholder="e.g., Software Engineer"
-                  value={formData.occupation || ''}
-                  onChange={(e) => updateFormData('occupation', e.target.value)}
+                  id="hometown"
+                  placeholder="Jolly Grant"
+                  value={formData.hometown || ''}
+                  onChange={(e) => updateFormData('hometown', e.target.value)}
+                  style={{ marginTop: '8px' }}
                 />
               </div>
               <div>
-                <Label htmlFor="employedIn">Employed In</Label>
-                <Select
-                  value={formData.employedIn}
-                  onValueChange={(value) => updateFormData('employedIn', value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select employment type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="private">Private Sector</SelectItem>
-                    <SelectItem value="government">Government</SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="self_employed">Self Employed</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="state_id">State ID</Label>
+                <Input
+                  id="state_id"
+                  type="number"
+                  placeholder="28"
+                  value={formData.state_id || ''}
+                  onChange={(e) => updateFormData('state_id', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Career */}
+          {currentStep === 4 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div>
+                <Label htmlFor="education_id">Education Level</Label>
+                <Input
+                  id="education_id"
+                  type="number"
+                  placeholder="3"
+                  value={formData.education_id || ''}
+                  onChange={(e) => updateFormData('education_id', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                />
               </div>
               <div>
-                <Label htmlFor="annualIncome">Annual Income</Label>
+                <Label htmlFor="occupation_id">Occupation</Label>
+                <Input
+                  id="occupation_id"
+                  type="number"
+                  placeholder="11"
+                  value={formData.occupation_id || ''}
+                  onChange={(e) => updateFormData('occupation_id', e.target.value)}
+                  style={{ marginTop: '8px' }}
+                />
+              </div>
+              <div>
+                <Label htmlFor="income">Income Range *</Label>
                 <Select
-                  value={formData.annualIncome}
-                  onValueChange={(value) => updateFormData('annualIncome', value)}
+                  value={formData.income}
+                  onValueChange={(value) => updateFormData('income', value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ marginTop: '8px' }}>
                     <SelectValue placeholder="Select income range" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="0-3">0 - 3 Lakhs</SelectItem>
-                    <SelectItem value="3-5">3 - 5 Lakhs</SelectItem>
-                    <SelectItem value="5-7">5 - 7 Lakhs</SelectItem>
-                    <SelectItem value="7-10">7 - 10 Lakhs</SelectItem>
-                    <SelectItem value="10+">10+ Lakhs</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          )}
-
-          {/* Step 4: About & Preferences */}
-          {currentStep === 4 && (
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="bio">About You *</Label>
-                <Textarea
-                  id="bio"
-                  placeholder="Tell us about yourself, your interests, and what you're looking for..."
-                  rows={5}
-                  value={formData.bio || ''}
-                  onChange={(e) => updateFormData('bio', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="lookingFor">Looking For</Label>
-                <Textarea
-                  id="lookingFor"
-                  placeholder="Describe your ideal partner..."
-                  rows={3}
-                  value={formData.lookingFor || ''}
-                  onChange={(e) => updateFormData('lookingFor', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="familyType">Family Type</Label>
-                <Select
-                  value={formData.familyType}
-                  onValueChange={(value) => updateFormData('familyType', value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select family type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="joint">Joint Family</SelectItem>
-                    <SelectItem value="nuclear">Nuclear Family</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="familyValues">Family Values</Label>
-                <Select
-                  value={formData.familyValues}
-                  onValueChange={(value) => updateFormData('familyValues', value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select family values" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="traditional">Traditional</SelectItem>
-                    <SelectItem value="moderate">Moderate</SelectItem>
-                    <SelectItem value="liberal">Liberal</SelectItem>
+                    <SelectItem value="0-3L">0-3L</SelectItem>
+                    <SelectItem value="3L-5L">3L-5L</SelectItem>
+                    <SelectItem value="5L-10L">5L-10L</SelectItem>
+                    <SelectItem value="10L-20L">10L-20L</SelectItem>
+                    <SelectItem value="20L+">20L+</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -369,35 +579,44 @@ const ProfileCreationStepper = () => {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              disabled={currentStep === 1 || createProfileMutation.isPending}
-            >
-              <ChevronLeft className="h-4 w-4 mr-2" />
-              Back
-            </Button>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '32px' }}>
+            {currentStep > 1 && (
+              <Button
+                onClick={handleBack}
+                variant="outline"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <ChevronLeft style={{ height: '16px', width: '16px' }} />
+                Back
+              </Button>
+            )}
+            
             <Button
               onClick={handleNext}
-              disabled={!isStepValid() || createProfileMutation.isPending}
-              className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white"
+              disabled={!isStepValid() || step1Mutation.isPending || step2Mutation.isPending || step3Mutation.isPending || step4Mutation.isPending}
+              style={{
+                marginLeft: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'linear-gradient(to right, #f43f5e, #ec4899)',
+                color: 'white',
+                padding: '12px 24px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: isStepValid() ? 'pointer' : 'not-allowed',
+                opacity: isStepValid() ? 1 : 0.5
+              }}
             >
-              {currentStep === 4 ? (
-                createProfileMutation.isPending ? (
-                  'Creating Profile...'
-                ) : (
-                  'Complete Profile'
-                )
-              ) : (
-                <>
-                  Next
-                  <ChevronRight className="h-4 w-4 ml-2" />
-                </>
-              )}
+              {currentStep === 4 ? 'Complete Profile' : 'Next'}
+              {currentStep < 4 && <ChevronRight style={{ height: '16px', width: '16px' }} />}
             </Button>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );
