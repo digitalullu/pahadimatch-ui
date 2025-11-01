@@ -230,7 +230,7 @@ const LoginPage = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full border-amber-300 text-amber-700 hover:bg-amber-50"
+                className="w-full border-2 border-red-300 text-red-700 hover:bg-red-50"
                 onClick={() => sendOtpMutation.mutate(Number(phone))}
                 disabled={sendOtpMutation.isPending}
               >
@@ -241,13 +241,13 @@ const LoginPage = () => {
 
           <div className="mt-6 text-center text-sm text-gray-600">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-amber-700 hover:text-amber-900 font-semibold">
+            <Link to="/signup" className="text-red-700 hover:text-red-900 font-semibold">
               Sign Up
             </Link>
           </div>
         </Card>
 
-        <p className="text-center text-xs text-amber-100 mt-6 drop-shadow">
+        <p className="text-center text-xs text-white/90 mt-6 drop-shadow">
           By continuing, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>
