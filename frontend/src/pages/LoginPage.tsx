@@ -418,8 +418,16 @@ const LoginPage = () => {
           </div>
         </div>
 
-        <p className="text-center text-xs text-white/95 mt-6 drop-shadow-lg px-4 leading-relaxed">
-          By continuing, you agree to our <span className="font-semibold">Terms of Service</span> and <span className="font-semibold">Privacy Policy</span>
+        <p style={{
+          textAlign: 'center',
+          fontSize: '12px',
+          color: 'rgba(255, 255, 255, 0.95)',
+          marginTop: '24px',
+          textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+          padding: '0 16px',
+          lineHeight: '1.5'
+        }}>
+          By continuing, you agree to our <span style={{ fontWeight: '600' }}>Terms of Service</span> and <span style={{ fontWeight: '600' }}>Privacy Policy</span>
         </p>
       </div>
     </div>
