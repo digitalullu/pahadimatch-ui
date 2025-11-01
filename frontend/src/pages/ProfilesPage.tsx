@@ -225,13 +225,16 @@ const ProfilesPage = () => {
               </Button>
               <Button
                 onClick={handleLike}
-                className="flex-1 h-14 text-lg bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white"
+                className="flex-1 h-14 text-lg bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white"
               >
                 <Heart className="h-6 w-6 mr-2 fill-white" />
-                Send Interest
+                रुचि भेजें (Send Interest)
               </Button>
             </div>
           </div>
+          
+          {/* Bottom decorative border */}
+          <div className="h-1.5 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
         </Card>
       )}
 
