@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import MainLayout from "@/layouts/MainLayout";
-import LoginPage from "@/pages/LoginPage";
-import SignupPage from "@/pages/SignupPage";
-import ProfileCreationStepper from "@/components/profile/ProfileCreationStepper";
-import ProfilesPage from "@/pages/ProfilesPage";
+import MainLayout from "@/layouts/MainLayout.tsx";
+import LoginPage from "@/pages/LoginPage.tsx";
+import SignupPage from "@/pages/SignupPage.tsx";
+import ProfileCreationStepper from "@/components/profile/ProfileCreationStepper.tsx";
+import ProfilesPage from "@/pages/ProfilesPage.tsx";
 import ChatPage from "@/pages/ChatPage";
 import NotificationsPage from "@/pages/NotificationsPage";
 import ProfilePage from "@/pages/ProfilePage";
