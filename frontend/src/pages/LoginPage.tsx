@@ -157,31 +157,52 @@ const LoginPage = () => {
         zIndex: 10
       }}>
         {/* Logo Section - Aipan Inspired with improved spacing */}
-        <div className="text-center mb-10">
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div 
-            className="inline-flex items-center justify-center rounded-full shadow-2xl relative mx-auto"
             style={{
               width: '80px',
               height: '80px',
               background: 'linear-gradient(to bottom right, #dc2626, #ea580c)',
-              border: '4px solid white'
+              border: '4px solid white',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              margin: '0 auto',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
             }}
           >
-            <Mountain className="text-white" style={{ width: '36px', height: '36px', position: 'absolute', top: '6px' }} />
-            <Heart className="text-white" style={{ width: '28px', height: '28px', position: 'absolute', bottom: '10px', fill: 'white' }} />
+            <Mountain style={{ width: '36px', height: '36px', color: 'white', position: 'absolute', top: '6px' }} />
+            <Heart style={{ width: '28px', height: '28px', color: 'white', fill: 'white', position: 'absolute', bottom: '10px' }} />
           </div>
           
-          <h1 className="text-5xl font-bold text-white mt-4 mb-3" style={{ fontFamily: 'Georgia, serif', textShadow: '0 4px 6px rgba(0,0,0,0.3)' }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: 'bold',
+            color: 'white',
+            marginTop: '16px',
+            marginBottom: '12px',
+            fontFamily: 'Georgia, serif',
+            textShadow: '0 4px 6px rgba(0,0,0,0.3)'
+          }}>
             PahadiMatch
           </h1>
           
-          <p className="text-lg font-medium px-4 mb-3" style={{ color: '#fef3c7', textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+          <p style={{
+            fontSize: '18px',
+            fontWeight: '500',
+            color: '#fef3c7',
+            padding: '0 16px',
+            marginBottom: '12px',
+            textShadow: '0 2px 4px rgba(0,0,0,0.2)'
+          }}>
             पहाड़ी दिलों का मिलन • Where Mountain Hearts Unite
           </p>
           
-          <div className="flex items-center justify-center gap-3 pt-2">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', paddingTop: '8px' }}>
             <div style={{ width: '64px', height: '2px', background: 'rgba(255, 255, 255, 0.6)' }}></div>
-            <span className="text-sm font-medium" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>उत्तराखंड • हिमाचल</span>
+            <span style={{ fontSize: '14px', fontWeight: '500', color: 'rgba(255, 255, 255, 0.95)' }}>उत्तराखंड • हिमाचल</span>
             <div style={{ width: '64px', height: '2px', background: 'rgba(255, 255, 255, 0.6)' }}></div>
           </div>
         </div>
