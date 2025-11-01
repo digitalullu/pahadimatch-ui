@@ -120,24 +120,32 @@ const LoginPage = () => {
       
       <div className="w-full max-w-md relative z-10">
         {/* Logo Section - Aipan Inspired with improved spacing */}
-        <div className="text-center mb-10 space-y-4">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-600 to-orange-600 rounded-full shadow-2xl border-4 border-white relative">
-            <Mountain className="w-9 h-9 text-white absolute top-1.5" />
-            <Heart className="w-7 h-7 text-white fill-white absolute bottom-2.5" />
+        <div className="text-center mb-10">
+          <div 
+            className="inline-flex items-center justify-center rounded-full shadow-2xl relative mx-auto"
+            style={{
+              width: '80px',
+              height: '80px',
+              background: 'linear-gradient(to bottom right, #dc2626, #ea580c)',
+              border: '4px solid white'
+            }}
+          >
+            <Mountain className="text-white" style={{ width: '36px', height: '36px', position: 'absolute', top: '6px' }} />
+            <Heart className="text-white" style={{ width: '28px', height: '28px', position: 'absolute', bottom: '10px', fill: 'white' }} />
           </div>
           
-          <h1 className="text-5xl font-bold text-white drop-shadow-2xl mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+          <h1 className="text-5xl font-bold text-white mt-4 mb-3" style={{ fontFamily: 'Georgia, serif', textShadow: '0 4px 6px rgba(0,0,0,0.3)' }}>
             PahadiMatch
           </h1>
           
-          <p className="text-amber-50 text-lg font-medium drop-shadow-lg px-4">
+          <p className="text-lg font-medium px-4 mb-3" style={{ color: '#fef3c7', textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
             पहाड़ी दिलों का मिलन • Where Mountain Hearts Unite
           </p>
           
           <div className="flex items-center justify-center gap-3 pt-2">
-            <div className="w-16 h-0.5 bg-white/60"></div>
-            <span className="text-sm text-white/95 font-medium">उत्तराखंड • हिमाचल</span>
-            <div className="w-16 h-0.5 bg-white/60"></div>
+            <div style={{ width: '64px', height: '2px', background: 'rgba(255, 255, 255, 0.6)' }}></div>
+            <span className="text-sm font-medium" style={{ color: 'rgba(255, 255, 255, 0.95)' }}>उत्तराखंड • हिमाचल</span>
+            <div style={{ width: '64px', height: '2px', background: 'rgba(255, 255, 255, 0.6)' }}></div>
           </div>
         </div>
 
