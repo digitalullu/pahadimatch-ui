@@ -266,30 +266,48 @@ const LoginPage = () => {
           </div>
 
           {step === 1 && (
-            <form onSubmit={handlePhoneSubmit} className="space-y-5">
-              <div className="space-y-2.5">
-                <Label htmlFor="phone" className="text-gray-800 font-semibold text-sm">
+            <form onSubmit={handlePhoneSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <Label htmlFor="phone" style={{ color: '#1f2937', fontWeight: '600', fontSize: '14px' }}>
                   Phone Number
                 </Label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3.5 h-5 w-5 text-red-600" />
+                <div style={{ position: 'relative' }}>
+                  <Phone style={{ position: 'absolute', left: '12px', top: '14px', height: '20px', width: '20px', color: '#dc2626' }} />
                   <Input
                     id="phone"
                     type="tel"
                     placeholder="9876543210"
-                    className="pl-11 h-12 border-2 border-red-200 focus:border-red-600 focus:ring-red-600 text-base"
+                    style={{
+                      paddingLeft: '44px',
+                      height: '48px',
+                      border: '2px solid #fecaca',
+                      borderRadius: '6px',
+                      fontSize: '16px',
+                      width: '100%'
+                    }}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                     maxLength={10}
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-500 pt-1">We'll send you an OTP to verify</p>
+                <p style={{ fontSize: '12px', color: '#6b7280', paddingTop: '4px' }}>We'll send you an OTP to verify</p>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-base shadow-lg transition-all hover:shadow-xl"
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(to right, #dc2626, #ea580c)',
+                  color: 'white',
+                  fontWeight: '600',
+                  padding: '24px',
+                  fontSize: '16px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
                 disabled={sendOtpMutation.isPending}
               >
                 {sendOtpMutation.isPending ? 'Sending OTP...' : 'भेजें OTP (Send OTP)'}
