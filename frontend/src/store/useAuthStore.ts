@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import { AuthState, User } from '@/types/auth.store';
 
-const useAuthStore = create<AuthState>(
+const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
@@ -30,6 +30,7 @@ const useAuthStore = create<AuthState>(
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
