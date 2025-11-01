@@ -1,7 +1,6 @@
 import { sendOtp, verifyOtp } from '@/api/auth.api';
 import { toast } from '@/hooks/use-toast';
 import useAuthStore from '@/store/useAuthStore';
-import { PhoneRequest } from '@/types/login';
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
