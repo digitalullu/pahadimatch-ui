@@ -143,7 +143,7 @@ const LoginPage = () => {
         </div>
 
         {/* Login Card - Aipan Style with improved structure */}
-        <Card 
+        <div 
           className="p-8 shadow-2xl backdrop-blur-md border-4 border-red-600/30 rounded-2xl relative overflow-hidden"
           style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
         >
