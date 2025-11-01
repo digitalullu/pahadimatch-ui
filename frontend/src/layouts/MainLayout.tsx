@@ -1,4 +1,4 @@
-import { Bell, LogOut, Heart, Compass, MessageCircle, User, Sparkles, Crown } from "lucide-react";
+import { Bell, LogOut, Heart, Compass, MessageCircle, User, Sparkles, Crown, Mountain } from "lucide-react";
 import { Outlet, Link, useLocation, Navigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
