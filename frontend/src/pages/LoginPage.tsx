@@ -156,8 +156,8 @@ const LoginPage = () => {
                 Back
               </Button>
             )}
-            <h2 className="text-3xl font-bold text-amber-900 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-              {step === 1 ? 'Welcome Back' : 'Verify OTP'}
+            <h2 className="text-3xl font-bold text-red-800 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+              {step === 1 ? 'स्वागत है (Welcome Back)' : 'OTP सत्यापन (Verify)'}
             </h2>
             <p className="text-gray-600">
               {step === 1
