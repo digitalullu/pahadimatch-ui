@@ -1,0 +1,92 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffe4e6 50%, #fce7f3 100%);
+}
+
+.body-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.left-sidebar {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(244, 63, 94, 0.1);
+  overflow-y: auto;
+}
+
+.main-content {
+  overflow-y: auto;
+  background: transparent;
+}
+
+.right-sidebar {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(244, 63, 94, 0.1);
+  overflow-y: auto;
+}
+
+/* Header gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(135deg, #F43F5E, #EC4899, #F43F5E);
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(244, 63, 94, 0.15);
+}
+
+/* Navigation active state */
+.nav-active {
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar */
+.left-sidebar::-webkit-scrollbar,
+.main-content::-webkit-scrollbar,
+.right-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.left-sidebar::-webkit-scrollbar-track,
+.main-content::-webkit-scrollbar-track,
+.right-sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.left-sidebar::-webkit-scrollbar-thumb,
+.main-content::-webkit-scrollbar-thumb,
+.right-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.3);
+  border-radius: 3px;
+}
+
+.left-sidebar::-webkit-scrollbar-thumb:hover,
+.main-content::-webkit-scrollbar-thumb:hover,
+.right-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.5);
+}
