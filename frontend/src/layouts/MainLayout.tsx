@@ -98,7 +98,7 @@ const MainLayout = () => {
           >
             <Bell size={24} />
             <span className="text-xs font-medium">Alerts</span>
-            <Badge className="absolute -top-1 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-yellow-400 text-rose-600 border-0">3</Badge>
+            <Badge className="absolute -top-1 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-red-500 text-white border-0">3</Badge>
           </Link>
           <Link
             to="/profile"
