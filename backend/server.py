@@ -37,10 +37,75 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Auth Models
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+class SignupRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    phone: str = ""
+    age: int = 0
+    gender: str = ""
+    location: str = ""
+
+class UserResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    age: int = 0
+    location: str = ""
+
+class AuthResponse(BaseModel):
+    user: UserResponse
+    token: str
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
     return {"message": "Hello World"}
+
+# Auth Routes
+@api_router.post("/auth/login", response_model=AuthResponse)
+async def login(credentials: LoginRequest):
+    # Mock login - In production, verify credentials against database
+    user = UserResponse(
+        id=str(uuid.uuid4()),
+        name="John Doe",
+        email=credentials.email,
+        age=28,
+        location="Mumbai"
+    )
+    return AuthResponse(user=user, token="mock-jwt-token")
+
+@api_router.post("/auth/signup", response_model=AuthResponse)
+async def signup(user_data: SignupRequest):
+    # Mock signup - In production, hash password and save to database
+    user = UserResponse(
+        id=str(uuid.uuid4()),
+        name=user_data.name,
+        email=user_data.email,
+        age=user_data.age,
+        location=user_data.location
+    )
+    return AuthResponse(user=user, token="mock-jwt-token")
+
+@api_router.post("/auth/logout")
+async def logout():
+    return {"message": "Logged out successfully"}
+
+@api_router.get("/auth/me", response_model=UserResponse)
+async def get_current_user():
+    # Mock current user - In production, verify JWT token
+    return UserResponse(
+        id="1",
+        name="John Doe",
+        email="john@example.com",
+        age=28,
+        location="Mumbai"
+    )
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
