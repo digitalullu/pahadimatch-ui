@@ -105,92 +105,96 @@ const LoginPage = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4 relative"
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
       style={{
         backgroundImage: 'url(https://images.unsplash.com/photo-1533113247493-619830c2e969?w=1920&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {/* Himalayan Overlay with Aipan pattern effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/50 via-red-900/40 to-blue-900/50 backdrop-blur-[2px]"></div>
+      {/* Enhanced Himalayan Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/70 via-red-900/60 to-blue-900/70 backdrop-blur-sm"></div>
       
       {/* Decorative Aipan corners */}
-      <div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white/30 rounded-tl-3xl"></div>
-      <div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-white/30 rounded-tr-3xl"></div>
+      <div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white/40 rounded-tl-3xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-white/40 rounded-tr-3xl"></div>
       
       <div className="w-full max-w-md relative z-10">
-        {/* Logo Section - Aipan Inspired */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-red-600 to-orange-600 rounded-full mb-4 shadow-2xl border-4 border-white relative">
-            <Mountain className="w-10 h-10 text-white absolute top-2" />
-            <Heart className="w-8 h-8 text-white fill-white absolute bottom-3" />
+        {/* Logo Section - Aipan Inspired with improved spacing */}
+        <div className="text-center mb-10 space-y-4">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-600 to-orange-600 rounded-full shadow-2xl border-4 border-white relative">
+            <Mountain className="w-9 h-9 text-white absolute top-1.5" />
+            <Heart className="w-7 h-7 text-white fill-white absolute bottom-2.5" />
           </div>
-          <h1 className="text-6xl font-bold text-white drop-shadow-2xl mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+          
+          <h1 className="text-5xl font-bold text-white drop-shadow-2xl mb-3" style={{ fontFamily: 'Georgia, serif' }}>
             PahadiMatch
           </h1>
-          <p className="text-amber-100 text-xl drop-shadow-lg">
+          
+          <p className="text-amber-50 text-lg font-medium drop-shadow-lg px-4">
             पहाड़ी दिलों का मिलन • Where Mountain Hearts Unite
           </p>
-          <div className="flex items-center justify-center gap-2 mt-3 text-white/90">
-            <div className="w-12 h-0.5 bg-white/50"></div>
-            <span className="text-sm">उत्तराखंड • हिमाचल</span>
-            <div className="w-12 h-0.5 bg-white/50"></div>
+          
+          <div className="flex items-center justify-center gap-3 pt-2">
+            <div className="w-16 h-0.5 bg-white/60"></div>
+            <span className="text-sm text-white/95 font-medium">उत्तराखंड • हिमाचल</span>
+            <div className="w-16 h-0.5 bg-white/60"></div>
           </div>
         </div>
 
-        {/* Login Card - Aipan Style */}
+        {/* Login Card - Aipan Style with improved structure */}
         <Card className="p-8 shadow-2xl backdrop-blur-md bg-white/98 border-4 border-red-600/30 rounded-2xl relative overflow-hidden">
           {/* Aipan decorative pattern */}
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
           <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
-          <div className="mb-6">
+          
+          <div className="mb-7">
             {step === 2 && (
               <Button
                 variant="ghost"
                 onClick={handleBack}
-                className="mb-4 -ml-2 text-amber-700 hover:text-amber-900"
+                className="mb-4 -ml-2 text-amber-700 hover:text-amber-900 hover:bg-amber-50"
                 disabled={verifyOtpMutation.isPending}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
             )}
-            <h2 className="text-3xl font-bold text-red-800 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-3xl font-bold text-red-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
               {step === 1 ? 'स्वागत है (Welcome Back)' : 'OTP सत्यापन (Verify)'}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-base">
               {step === 1
                 ? 'Enter your phone number to continue'
-                : `Enter the OTP sent to ${phone}`}
+                : `Enter the OTP sent to +91 ${phone}`}
             </p>
           </div>
 
           {step === 1 && (
-            <form onSubmit={handlePhoneSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-gray-700 font-semibold">
+            <form onSubmit={handlePhoneSubmit} className="space-y-5">
+              <div className="space-y-2.5">
+                <Label htmlFor="phone" className="text-gray-800 font-semibold text-sm">
                   Phone Number
                 </Label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-5 w-5 text-red-600" />
+                  <Phone className="absolute left-3 top-3.5 h-5 w-5 text-red-600" />
                   <Input
                     id="phone"
                     type="tel"
                     placeholder="9876543210"
-                    className="pl-10 border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
+                    className="pl-11 h-12 border-2 border-red-200 focus:border-red-600 focus:ring-red-600 text-base"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                     maxLength={10}
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-500">We'll send you an OTP to verify</p>
+                <p className="text-xs text-gray-500 pt-1">We'll send you an OTP to verify</p>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-lg shadow-lg"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-base shadow-lg transition-all hover:shadow-xl"
                 disabled={sendOtpMutation.isPending}
               >
                 {sendOtpMutation.isPending ? 'Sending OTP...' : 'भेजें OTP (Send OTP)'}
@@ -199,18 +203,18 @@ const LoginPage = () => {
           )}
 
           {step === 2 && (
-            <form onSubmit={handleOtpSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="otp" className="text-gray-700 font-semibold">
+            <form onSubmit={handleOtpSubmit} className="space-y-5">
+              <div className="space-y-2.5">
+                <Label htmlFor="otp" className="text-gray-800 font-semibold text-sm">
                   Enter OTP
                 </Label>
                 <div className="relative">
-                  <Shield className="absolute left-3 top-3 h-5 w-5 text-red-600" />
+                  <Shield className="absolute left-3 top-3.5 h-5 w-5 text-red-600" />
                   <Input
                     id="otp"
                     type="text"
                     placeholder="123456"
-                    className="pl-10 text-center text-2xl tracking-widest border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
+                    className="pl-11 h-12 text-center text-2xl tracking-widest border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                     maxLength={6}
@@ -221,7 +225,7 @@ const LoginPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-lg shadow-lg"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-base shadow-lg transition-all hover:shadow-xl"
                 disabled={verifyOtpMutation.isPending}
               >
                 {verifyOtpMutation.isPending ? 'Verifying...' : 'सत्यापित करें (Verify & Login)'}
@@ -230,7 +234,7 @@ const LoginPage = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full border-2 border-red-300 text-red-700 hover:bg-red-50"
+                className="w-full h-12 border-2 border-red-300 text-red-700 hover:bg-red-50 font-medium"
                 onClick={() => sendOtpMutation.mutate(Number(phone))}
                 disabled={sendOtpMutation.isPending}
               >
@@ -239,16 +243,21 @@ const LoginPage = () => {
             </form>
           )}
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-red-700 hover:text-red-900 font-semibold">
-              Sign Up
-            </Link>
+          <div className="mt-7 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link 
+                to="/signup" 
+                className="inline-flex items-center justify-center px-4 py-2 ml-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all text-sm"
+              >
+                Sign Up
+              </Link>
+            </p>
           </div>
         </Card>
 
-        <p className="text-center text-xs text-white/90 mt-6 drop-shadow">
-          By continuing, you agree to our Terms of Service and Privacy Policy
+        <p className="text-center text-xs text-white/95 mt-6 drop-shadow-lg px-4 leading-relaxed">
+          By continuing, you agree to our <span className="font-semibold">Terms of Service</span> and <span className="font-semibold">Privacy Policy</span>
         </p>
       </div>
     </div>
