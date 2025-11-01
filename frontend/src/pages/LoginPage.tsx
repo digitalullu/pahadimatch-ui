@@ -151,15 +151,30 @@ const LoginPage = () => {
 
         {/* Login Card - Aipan Style with improved structure */}
         <div 
-          className="p-8 shadow-2xl rounded-2xl relative overflow-hidden"
+          className="p-8 shadow-2xl rounded-2xl relative"
           style={{ 
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            border: '4px solid rgba(220, 38, 38, 0.3)'
+            border: '4px solid rgba(220, 38, 38, 0.3)',
+            overflow: 'hidden'
           }}
         >
           {/* Aipan decorative pattern */}
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
-          <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '8px',
+            background: 'linear-gradient(to right, #dc2626, #f97316, #dc2626)'
+          }}></div>
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: '8px',
+            background: 'linear-gradient(to right, #dc2626, #f97316, #dc2626)'
+          }}></div>
           
           <div className="mb-7">
             {step === 2 && (
