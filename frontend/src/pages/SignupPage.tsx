@@ -266,12 +266,32 @@ const SignupPage = () => {
             </form>
           )}
 
-          <div className="mt-7 pt-6 border-t border-gray-200 text-center">
-            <p className="text-sm text-gray-600">
+          <div className="mt-7 pt-6 text-center" style={{ borderTop: '1px solid #e5e7eb' }}>
+            <p className="text-sm" style={{ color: '#4b5563' }}>
               Already have an account?{' '}
               <Link 
                 to="/login" 
-                className="inline-flex items-center justify-center px-4 py-2 ml-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all text-sm"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '8px 16px',
+                  marginLeft: '8px',
+                  background: 'linear-gradient(to right, #dc2626, #ea580c)',
+                  color: 'white',
+                  fontWeight: '600',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  transition: 'all 0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                }}
               >
                 Login
               </Link>
