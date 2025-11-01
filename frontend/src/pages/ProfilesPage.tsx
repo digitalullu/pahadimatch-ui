@@ -131,7 +131,7 @@ const ProfilesPage = () => {
 
             {/* Premium Badge */}
             {currentProfile.premium && (
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+              <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-orange-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg z-10">
                 <Star className="h-5 w-5 fill-white" />
                 Premium
               </div>
@@ -142,7 +142,7 @@ const ProfilesPage = () => {
           <div className="p-6 space-y-4">
             <div className="flex items-start justify-between">
               <div>
-                <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
+                <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
                   {currentProfile.name}
                   {currentProfile.dateOfBirth && (
                     <span className="text-2xl text-gray-600">
@@ -156,7 +156,7 @@ const ProfilesPage = () => {
             <div className="space-y-2">
               {(currentProfile.city || currentProfile.state) && (
                 <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin className="h-5 w-5 text-rose-500" />
+                  <MapPin className="h-5 w-5 text-red-600" />
                   <span>
                     {currentProfile.city}
                     {currentProfile.state && `, ${currentProfile.state}`}
@@ -165,13 +165,13 @@ const ProfilesPage = () => {
               )}
               {currentProfile.occupation && (
                 <div className="flex items-center gap-2 text-gray-600">
-                  <Briefcase className="h-5 w-5 text-rose-500" />
+                  <Briefcase className="h-5 w-5 text-red-600" />
                   <span>{currentProfile.occupation}</span>
                 </div>
               )}
               {currentProfile.education && (
                 <div className="flex items-center gap-2 text-gray-600">
-                  <GraduationCap className="h-5 w-5 text-rose-500" />
+                  <GraduationCap className="h-5 w-5 text-red-600" />
                   <span>{currentProfile.education}</span>
                 </div>
               )}
