@@ -4,7 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import MainLayout from "@/layouts/MainLayout";
 import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
-import ExplorePage from "@/pages/ExplorePage";
+import ProfileCreationStepper from "@/components/profile/ProfileCreationStepper";
+import ProfilesPage from "@/pages/ProfilesPage";
 import ChatPage from "@/pages/ChatPage";
 import NotificationsPage from "@/pages/NotificationsPage";
 import ProfilePage from "@/pages/ProfilePage";
@@ -15,6 +16,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
@@ -26,10 +28,11 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/complete-profile" element={<ProfileCreationStepper />} />
           
           <Route element={<MainLayout />}>
-            <Route path="/" element={<Navigate to="/explore" replace />} />
-            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/" element={<Navigate to="/profiles" replace />} />
+            <Route path="/profiles" element={<ProfilesPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
