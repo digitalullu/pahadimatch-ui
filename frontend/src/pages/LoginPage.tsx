@@ -316,18 +316,27 @@ const LoginPage = () => {
           )}
 
           {step === 2 && (
-            <form onSubmit={handleOtpSubmit} className="space-y-5">
-              <div className="space-y-2.5">
-                <Label htmlFor="otp" className="text-gray-800 font-semibold text-sm">
+            <form onSubmit={handleOtpSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <Label htmlFor="otp" style={{ color: '#1f2937', fontWeight: '600', fontSize: '14px' }}>
                   Enter OTP
                 </Label>
-                <div className="relative">
-                  <Shield className="absolute left-3 top-3.5 h-5 w-5 text-red-600" />
+                <div style={{ position: 'relative' }}>
+                  <Shield style={{ position: 'absolute', left: '12px', top: '14px', height: '20px', width: '20px', color: '#dc2626' }} />
                   <Input
                     id="otp"
                     type="text"
                     placeholder="123456"
-                    className="pl-11 h-12 text-center text-2xl tracking-widest border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
+                    style={{
+                      paddingLeft: '44px',
+                      height: '48px',
+                      textAlign: 'center',
+                      fontSize: '24px',
+                      letterSpacing: '0.1em',
+                      border: '2px solid #fecaca',
+                      borderRadius: '6px',
+                      width: '100%'
+                    }}
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                     maxLength={6}
@@ -338,7 +347,18 @@ const LoginPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-base shadow-lg transition-all hover:shadow-xl"
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(to right, #dc2626, #ea580c)',
+                  color: 'white',
+                  fontWeight: '600',
+                  padding: '24px',
+                  fontSize: '16px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
                 disabled={verifyOtpMutation.isPending}
               >
                 {verifyOtpMutation.isPending ? 'Verifying...' : 'सत्यापित करें (Verify & Login)'}
@@ -347,7 +367,16 @@ const LoginPage = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-12 border-2 border-red-300 text-red-700 hover:bg-red-50 font-medium"
+                style={{
+                  width: '100%',
+                  height: '48px',
+                  border: '2px solid #fca5a5',
+                  color: '#b91c1c',
+                  fontWeight: '500',
+                  borderRadius: '8px',
+                  background: 'white',
+                  cursor: 'pointer'
+                }}
                 onClick={() => sendOtpMutation.mutate(Number(phone))}
                 disabled={sendOtpMutation.isPending}
               >
