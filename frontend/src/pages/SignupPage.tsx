@@ -185,10 +185,10 @@ const SignupPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold py-6"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6"
                 disabled={sendOtpMutation.isPending}
               >
-                {sendOtpMutation.isPending ? 'Sending OTP...' : 'Send OTP'}
+                {sendOtpMutation.isPending ? 'Sending OTP...' : 'भेजें OTP (Send OTP)'}
               </Button>
             </form>
           )}
@@ -196,16 +196,16 @@ const SignupPage = () => {
           {step === 2 && (
             <form onSubmit={handleOtpSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="otp" className="text-gray-700">
+                <Label htmlFor="otp" className="text-gray-800 font-semibold">
                   Enter OTP
                 </Label>
                 <div className="relative">
-                  <Shield className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Shield className="absolute left-3 top-3 h-5 w-5 text-red-600" />
                   <Input
                     id="otp"
                     type="text"
                     placeholder="123456"
-                    className="pl-10 text-center text-2xl tracking-widest"
+                    className="pl-10 text-center text-2xl tracking-widest border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                     maxLength={6}
