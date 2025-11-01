@@ -190,10 +190,10 @@ const LoginPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold py-6 text-lg shadow-lg"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6 text-lg shadow-lg"
                 disabled={sendOtpMutation.isPending}
               >
-                {sendOtpMutation.isPending ? 'Sending OTP...' : 'Send OTP'}
+                {sendOtpMutation.isPending ? 'Sending OTP...' : 'भेजें OTP (Send OTP)'}
               </Button>
             </form>
           )}
