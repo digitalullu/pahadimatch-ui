@@ -205,12 +205,12 @@ const LoginPage = () => {
                   Enter OTP
                 </Label>
                 <div className="relative">
-                  <Shield className="absolute left-3 top-3 h-5 w-5 text-amber-600" />
+                  <Shield className="absolute left-3 top-3 h-5 w-5 text-red-600" />
                   <Input
                     id="otp"
                     type="text"
                     placeholder="123456"
-                    className="pl-10 text-center text-2xl tracking-widest border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                    className="pl-10 text-center text-2xl tracking-widest border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
                     maxLength={6}
