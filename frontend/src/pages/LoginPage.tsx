@@ -209,8 +209,11 @@ const LoginPage = () => {
 
         {/* Login Card - Aipan Style with improved structure */}
         <div 
-          className="p-8 shadow-2xl rounded-2xl relative"
           style={{ 
+            padding: '32px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            borderRadius: '16px',
+            position: 'relative',
             backgroundColor: 'rgba(255, 255, 255, 0.98)',
             border: '4px solid rgba(220, 38, 38, 0.3)',
             overflow: 'hidden'
