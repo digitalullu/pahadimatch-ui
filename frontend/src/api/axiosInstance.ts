@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_DEV_URL || 'https://api.dev.pahadimatch.com/v1',
+  baseURL: process.env.REACT_APP_BACKEND_URL || 'https://api.dev.pahadimatch.com/v1',
   headers: {
     'Content-Type': 'application/json',
   },
