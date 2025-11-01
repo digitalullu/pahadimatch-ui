@@ -237,22 +237,28 @@ const LoginPage = () => {
             background: 'linear-gradient(to right, #dc2626, #f97316, #dc2626)'
           }}></div>
           
-          <div className="mb-7">
+          <div style={{ marginBottom: '28px' }}>
             {step === 2 && (
               <Button
                 variant="ghost"
                 onClick={handleBack}
-                className="mb-4 -ml-2 text-amber-700 hover:text-amber-900 hover:bg-amber-50"
+                style={{ marginBottom: '16px', marginLeft: '-8px', color: '#b45309' }}
                 disabled={verifyOtpMutation.isPending}
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back
               </Button>
             )}
-            <h2 className="text-3xl font-bold text-red-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 style={{
+              fontSize: '30px',
+              fontWeight: 'bold',
+              color: '#991b1b',
+              marginBottom: '12px',
+              fontFamily: 'Georgia, serif'
+            }}>
               {step === 1 ? 'स्वागत है (Welcome Back)' : 'OTP सत्यापन (Verify)'}
             </h2>
-            <p className="text-gray-600 text-base">
+            <p style={{ color: '#4b5563', fontSize: '16px' }}>
               {step === 1
                 ? 'Enter your phone number to continue'
                 : `Enter the OTP sent to +91 ${phone}`}
