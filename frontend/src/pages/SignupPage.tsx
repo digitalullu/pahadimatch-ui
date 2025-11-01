@@ -216,16 +216,16 @@ const SignupPage = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold py-6"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-6"
                 disabled={verifyOtpMutation.isPending}
               >
-                {verifyOtpMutation.isPending ? 'Verifying...' : 'Verify & Continue'}
+                {verifyOtpMutation.isPending ? 'Verifying...' : 'सत्यापित करें (Verify & Continue)'}
               </Button>
 
               <Button
                 type="button"
                 variant="outline"
-                className="w-full"
+                className="w-full border-2 border-red-300 text-red-700 hover:bg-red-50"
                 onClick={() => sendOtpMutation.mutate(Number(phone))}
                 disabled={sendOtpMutation.isPending}
               >
@@ -234,15 +234,15 @@ const SignupPage = () => {
             </form>
           )}
 
-          <div className="mt-6 text-center text-sm text-gray-600">
+          <div className="mt-6 text-center text-sm text-gray-700">
             Already have an account?{' '}
-            <Link to="/login" className="text-rose-600 hover:text-rose-700 font-semibold">
+            <Link to="/login" className="text-red-700 hover:text-red-900 font-semibold">
               Login
             </Link>
           </div>
         </Card>
 
-        <p className="text-center text-xs text-gray-500 mt-6">
+        <p className="text-center text-xs text-white/90 mt-6 drop-shadow">
           By signing up, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>
