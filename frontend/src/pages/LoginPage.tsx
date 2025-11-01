@@ -173,12 +173,12 @@ const LoginPage = () => {
                   Phone Number
                 </Label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-5 w-5 text-amber-600" />
+                  <Phone className="absolute left-3 top-3 h-5 w-5 text-red-600" />
                   <Input
                     id="phone"
                     type="tel"
                     placeholder="9876543210"
-                    className="pl-10 border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                    className="pl-10 border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                     maxLength={10}
