@@ -35,6 +35,8 @@ const webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      // Add TypeScript extensions
+      webpackConfig.resolve.extensions.push('.ts', '.tsx');
 
       // Disable hot reload completely if environment variable is set
       if (config.disableHotReload) {
