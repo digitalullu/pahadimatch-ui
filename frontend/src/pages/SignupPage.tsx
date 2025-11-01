@@ -252,7 +252,7 @@ const SignupPage = () => {
               </Link>
             </p>
           </div>
-        </Card>
+        </div>
 
         <p className="text-center text-xs text-white/95 mt-6 drop-shadow-lg px-4 leading-relaxed">
           By signing up, you agree to our <span className="font-semibold">Terms of Service</span> and <span className="font-semibold">Privacy Policy</span>
