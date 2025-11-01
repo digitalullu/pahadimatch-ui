@@ -57,9 +57,10 @@
     "zustand": "^5.0.8"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test"
+    "start": "NODE_OPTIONS='--loader ts-node/esm' craco start",
+    "build": "NODE_OPTIONS='--loader ts-node/esm' craco build",
+    "test": "craco test",
+    "type-check": "tsc --noEmit"
   },
   "browserslist": {
     "production": [
