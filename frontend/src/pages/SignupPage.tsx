@@ -151,29 +151,29 @@ const SignupPage = () => {
                 Back
               </Button>
             )}
-            <h2 className="text-2xl font-bold text-gray-800">
-              {step === 1 ? 'Create Account' : 'Verify OTP'}
+            <h2 className="text-3xl font-bold text-red-800 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+              {step === 1 ? 'नया खाता बनाएं (Create Account)' : 'OTP सत्यापन (Verify)'}
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-700">
               {step === 1
                 ? 'Enter your phone number to get started'
-                : `Enter the OTP sent to ${phone}`}
+                : `Enter the OTP sent to +91 ${phone}`}
             </p>
           </div>
 
           {step === 1 && (
             <form onSubmit={handlePhoneSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-gray-700">
+                <Label htmlFor="phone" className="text-gray-800 font-semibold">
                   Phone Number
                 </Label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Phone className="absolute left-3 top-3 h-5 w-5 text-red-600" />
                   <Input
                     id="phone"
                     type="tel"
                     placeholder="9876543210"
-                    className="pl-10"
+                    className="pl-10 border-2 border-red-200 focus:border-red-600 focus:ring-red-600"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                     maxLength={10}
