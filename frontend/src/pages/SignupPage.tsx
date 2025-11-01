@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Heart, Phone, Shield, ArrowLeft } from 'lucide-react';
+import { Heart, Phone, Shield, ArrowLeft, Mountain } from 'lucide-react';
 
 const SignupPage = () => {
   const [phone, setPhone] = useState<string>('');
