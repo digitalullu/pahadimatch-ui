@@ -64,10 +64,6 @@ const ProfileCreationStepper = () => {
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateFormData(e.target.id, e.target.value);
-  };
-
   const isStepValid = () => {
     switch (currentStep) {
       case 1:
