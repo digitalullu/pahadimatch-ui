@@ -104,21 +104,58 @@ const LoginPage = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
       style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '16px',
+        position: 'relative',
+        overflow: 'hidden',
         backgroundImage: 'url(https://images.unsplash.com/photo-1533113247493-619830c2e969?w=1920&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
       {/* Enhanced Himalayan Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/70 via-red-900/60 to-blue-900/70 backdrop-blur-sm"></div>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(to bottom right, rgba(124, 45, 18, 0.7), rgba(127, 29, 29, 0.6), rgba(30, 58, 138, 0.7))',
+        backdropFilter: 'blur(4px)'
+      }}></div>
       
       {/* Decorative Aipan corners */}
-      <div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white/40 rounded-tl-3xl"></div>
-      <div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-white/40 rounded-tr-3xl"></div>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '128px',
+        height: '128px',
+        borderTop: '4px solid rgba(255, 255, 255, 0.4)',
+        borderLeft: '4px solid rgba(255, 255, 255, 0.4)',
+        borderTopLeftRadius: '24px'
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: '128px',
+        height: '128px',
+        borderTop: '4px solid rgba(255, 255, 255, 0.4)',
+        borderRight: '4px solid rgba(255, 255, 255, 0.4)',
+        borderTopRightRadius: '24px'
+      }}></div>
       
-      <div className="w-full max-w-md relative z-10">
+      <div style={{
+        width: '100%',
+        maxWidth: '448px',
+        position: 'relative',
+        zIndex: 10
+      }}>
         {/* Logo Section - Aipan Inspired with improved spacing */}
         <div className="text-center mb-10">
           <div 
