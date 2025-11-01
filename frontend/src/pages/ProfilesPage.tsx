@@ -73,28 +73,48 @@ const ProfilesPage = () => {
     );
   }
 
+  const profileImages = [
+    'https://images.unsplash.com/photo-1649433658557-54cf58577c68',
+    'https://images.unsplash.com/photo-1581065178047-8ee15951ede6',
+    'https://images.pexels.com/photos/14758778/pexels-photo-14758778.jpeg',
+    'https://images.pexels.com/photos/4307869/pexels-photo-4307869.jpeg',
+    'https://images.unsplash.com/photo-1560250097-0b93528c311a',
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2',
+  ];
+
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-            Discover Matches
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent" style={{ fontFamily: 'Georgia, serif' }}>
+            खोजें (Discover Matches)
           </h1>
-          <p className="text-gray-600 mt-1">Find your perfect match</p>
+          <p className="text-gray-600 mt-1">Find your perfect Pahadi match</p>
         </div>
-        <Badge className="bg-gradient-to-r from-rose-500 to-pink-500 text-white border-0 px-4 py-2">
+        <Badge className="bg-gradient-to-r from-red-600 to-orange-600 text-white border-0 px-4 py-2">
           {profiles.length} Profiles
         </Badge>
       </div>
 
       {/* Profile Card */}
       {currentProfile && (
-        <Card className="overflow-hidden shadow-2xl">
+        <Card className="overflow-hidden shadow-2xl border-4 border-red-600/20 rounded-2xl relative">
+          {/* Aipan decorative borders */}
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 via-orange-500 to-red-600 z-10"></div>
+          
           <div className="relative">
-            {/* Profile Image */}
-            <div className="h-96 bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center">
-              <Avatar className="h-80 w-80 border-8 border-white shadow-2xl">
-                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentProfile.id}`} />
+            {/* Profile Image with Himalayan background */}
+            <div 
+              className="h-96 flex items-center justify-center relative"
+              style={{
+                backgroundImage: 'url(https://images.unsplash.com/photo-1549811253-aed8c89e9f3d?w=800&q=80)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+              <Avatar className="h-80 w-80 border-8 border-white shadow-2xl relative z-10">
+                <AvatarImage src={`${profileImages[currentIndex % profileImages.length]}?w=400&q=80`} />
                 <AvatarFallback className="text-6xl">
                   {currentProfile.name?.charAt(0) || 'U'}
                 </AvatarFallback>
