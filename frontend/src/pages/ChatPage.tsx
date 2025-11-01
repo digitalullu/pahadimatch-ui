@@ -6,18 +6,35 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
-const ChatPage = () => {
-  const [selectedChat, setSelectedChat] = useState(1);
-  const [message, setMessage] = useState('');
+interface Conversation {
+  id: number;
+  name: string;
+  lastMessage: string;
+  time: string;
+  unread: number;
+  online: boolean;
+  avatar: string;
+}
 
-  const conversations = [
-    { id: 1, name: 'Priya Sharma', lastMessage: 'That sounds great!', time: '2m ago', unread: 2, online: true, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya' },
-    { id: 2, name: 'Rahul Verma', lastMessage: 'See you tomorrow!', time: '1h ago', unread: 0, online: false, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=rahul' },
-    { id: 3, name: 'Ananya Patel', lastMessage: 'Thank you so much!', time: '3h ago', unread: 1, online: true, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ananya' },
-    { id: 4, name: 'Arjun Singh', lastMessage: 'What do you think?', time: '1d ago', unread: 0, online: false, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=arjun' },
+interface Message {
+  id: number;
+  sender: 'me' | 'them';
+  text: string;
+  time: string;
+}
+
+const ChatPage: React.FC = () => {
+  const [selectedChat, setSelectedChat] = useState<number>(1);
+  const [message, setMessage] = useState<string>('');
+
+  const conversations: Conversation[] = [
+    { id: 1, name: 'Priya Sharma', lastMessage: 'That sounds great!', time: '2m ago', unread: 2, online: true, avatar: 'https://images.unsplash.com/photo-1649433658557-54cf58577c68?w=100&q=80' },
+    { id: 2, name: 'Rahul Verma', lastMessage: 'See you tomorrow!', time: '1h ago', unread: 0, online: false, avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80' },
+    { id: 3, name: 'Ananya Patel', lastMessage: 'Thank you so much!', time: '3h ago', unread: 1, online: true, avatar: 'https://images.pexels.com/photos/14758778/pexels-photo-14758778.jpeg?w=100&q=80' },
+    { id: 4, name: 'Arjun Singh', lastMessage: 'What do you think?', time: '1d ago', unread: 0, online: false, avatar: 'https://images.pexels.com/photos/4307869/pexels-photo-4307869.jpeg?w=100&q=80' },
   ];
 
-  const messages = [
+  const messages: Message[] = [
     { id: 1, sender: 'them', text: 'Hi! I saw your profile and would love to connect.', time: '10:30 AM' },
     { id: 2, sender: 'me', text: 'Hello! Thank you for reaching out. I\'d love to know more about you.', time: '10:32 AM' },
     { id: 3, sender: 'them', text: 'Sure! I work as a software engineer and love hiking on weekends.', time: '10:35 AM' },
@@ -26,10 +43,16 @@ const ChatPage = () => {
     { id: 6, sender: 'me', text: 'That sounds great!', time: '10:42 AM' },
   ];
 
-  const handleSend = () => {
+  const handleSend = (): void => {
     if (message.trim()) {
       // Add message logic here
       setMessage('');
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      handleSend();
     }
   };
 
@@ -37,11 +60,13 @@ const ChatPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto h-[calc(100vh-12rem)]">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent mb-6">Messages</h1>
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+        संदेश (Messages)
+      </h1>
       
       <div className="grid md:grid-cols-3 gap-4 h-full">
         {/* Conversations List */}
-        <Card className="md:col-span-1 p-4 overflow-y-auto">
+        <Card className="md:col-span-1 p-4 overflow-y-auto border-2 border-red-100">
           <div className="mb-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -55,7 +80,7 @@ const ChatPage = () => {
                 key={conv.id}
                 onClick={() => setSelectedChat(conv.id)}
                 className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition ${
-                  selectedChat === conv.id ? 'bg-rose-50 border border-rose-200' : 'hover:bg-gray-50'
+                  selectedChat === conv.id ? 'bg-red-50 border-2 border-red-200' : 'hover:bg-gray-50'
                 }`}
               >
                 <div className="relative">
@@ -75,7 +100,7 @@ const ChatPage = () => {
                   <p className="text-sm text-gray-600 truncate">{conv.lastMessage}</p>
                 </div>
                 {conv.unread > 0 && (
-                  <Badge className="bg-rose-500 text-white">{conv.unread}</Badge>
+                  <Badge className="bg-red-500 text-white">{conv.unread}</Badge>
                 )}
               </div>
             ))}
@@ -83,9 +108,9 @@ const ChatPage = () => {
         </Card>
 
         {/* Chat Window */}
-        <Card className="md:col-span-2 flex flex-col">
+        <Card className="md:col-span-2 flex flex-col border-2 border-red-100">
           {/* Chat Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b-2 border-red-100">
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10">
                 <AvatarImage src={selectedConversation?.avatar} />
@@ -98,13 +123,13 @@ const ChatPage = () => {
             </div>
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="icon">
-                <Phone className="h-5 w-5" />
+                <Phone className="h-5 w-5 text-red-600" />
               </Button>
               <Button variant="ghost" size="icon">
-                <Video className="h-5 w-5" />
+                <Video className="h-5 w-5 text-red-600" />
               </Button>
               <Button variant="ghost" size="icon">
-                <MoreVertical className="h-5 w-5" />
+                <MoreVertical className="h-5 w-5 text-red-600" />
               </Button>
             </div>
           </div>
@@ -119,7 +144,7 @@ const ChatPage = () => {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
                     msg.sender === 'me'
-                      ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white'
+                      ? 'bg-gradient-to-r from-red-600 to-orange-600 text-white'
                       : 'bg-gray-100 text-gray-800'
                   }`}
                 >
@@ -133,7 +158,7 @@ const ChatPage = () => {
           </div>
 
           {/* Message Input */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-4 border-t-2 border-red-100">
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="icon">
                 <Smile className="h-5 w-5 text-gray-400" />
@@ -142,12 +167,12 @@ const ChatPage = () => {
                 placeholder="Type a message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                onKeyPress={handleKeyPress}
                 className="flex-1"
               />
               <Button
                 onClick={handleSend}
-                className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white"
+                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white"
               >
                 <Send className="h-5 w-5" />
               </Button>
