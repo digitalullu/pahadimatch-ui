@@ -107,28 +107,43 @@ const LoginPage = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1700140579084-ef7e6c5f54c0?w=1920&q=80)',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1533113247493-619830c2e969?w=1920&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-orange-800/30 to-yellow-900/40 backdrop-blur-sm"></div>
+      {/* Himalayan Overlay with Aipan pattern effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/50 via-red-900/40 to-blue-900/50 backdrop-blur-[2px]"></div>
+      
+      {/* Decorative Aipan corners */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white/30 rounded-tl-3xl"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-white/30 rounded-tr-3xl"></div>
       
       <div className="w-full max-w-md relative z-10">
-        {/* Logo Section */}
+        {/* Logo Section - Aipan Inspired */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-600 to-orange-700 rounded-full mb-4 shadow-2xl border-4 border-white">
-            <Heart className="w-10 h-10 text-white fill-white" />
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-red-600 to-orange-600 rounded-full mb-4 shadow-2xl border-4 border-white relative">
+            <Mountain className="w-10 h-10 text-white absolute top-2" />
+            <Heart className="w-8 h-8 text-white fill-white absolute bottom-3" />
           </div>
-          <h1 className="text-5xl font-bold text-white drop-shadow-lg mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+          <h1 className="text-6xl font-bold text-white drop-shadow-2xl mb-2" style={{ fontFamily: 'Georgia, serif' }}>
             PahadiMatch
           </h1>
-          <p className="text-amber-100 text-lg drop-shadow-md">Where Hearts Find Home</p>
+          <p className="text-amber-100 text-xl drop-shadow-lg">
+            पहाड़ी दिलों का मिलन • Where Mountain Hearts Unite
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-3 text-white/90">
+            <div className="w-12 h-0.5 bg-white/50"></div>
+            <span className="text-sm">उत्तराखंड • हिमाचल</span>
+            <div className="w-12 h-0.5 bg-white/50"></div>
+          </div>
         </div>
 
-        {/* Login Card */}
-        <Card className="p-8 shadow-2xl backdrop-blur-md bg-white/95 border-2 border-amber-200">
+        {/* Login Card - Aipan Style */}
+        <Card className="p-8 shadow-2xl backdrop-blur-md bg-white/98 border-4 border-red-600/30 rounded-2xl relative overflow-hidden">
+          {/* Aipan decorative pattern */}
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
+          <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-orange-500 to-red-600"></div>
           <div className="mb-6">
             {step === 2 && (
               <Button
