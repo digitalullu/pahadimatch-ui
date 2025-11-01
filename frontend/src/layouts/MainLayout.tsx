@@ -43,8 +43,11 @@ const MainLayout = () => {
       {/* Mobile Top Header */}
       <header className="flex items-center justify-between px-4 h-16 animated-gradient text-white shadow-lg md:hidden">
         <div className="flex items-center gap-2">
-          <Heart className="h-6 w-6 fill-white" />
-          <span className="text-xl font-bold">{appTitle}</span>
+          <div className="relative">
+            <Mountain className="h-5 w-5 absolute -top-1" />
+            <Heart className="h-4 w-4 fill-white absolute top-2" />
+          </div>
+          <span className="text-xl font-bold ml-4">{appTitle}</span>
         </div>
         <button
           onClick={() => logoutMutation.mutate()}
@@ -58,12 +61,13 @@ const MainLayout = () => {
       {/* Desktop Header */}
       <header className="hidden md:flex justify-between items-center px-8 py-4 animated-gradient text-white shadow-lg">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
-            <Heart className="h-7 w-7 fill-white" />
+          <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm relative">
+            <Mountain className="h-6 w-6 absolute top-1 left-1/2 -translate-x-1/2" />
+            <Heart className="h-5 w-5 fill-white absolute bottom-1 left-1/2 -translate-x-1/2" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-wide">{appTitle}</h1>
-            <p className="text-xs text-white/80">Find Your Perfect Match</p>
+            <h1 className="text-2xl font-bold tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>{appTitle}</h1>
+            <p className="text-xs text-white/90">पहाड़ी दिलों का मिलन • Mountain Hearts Unite</p>
           </div>
         </div>
 
