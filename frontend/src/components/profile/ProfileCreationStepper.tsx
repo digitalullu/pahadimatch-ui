@@ -168,7 +168,7 @@ const ProfileCreationStepper = () => {
                 <Label htmlFor="height">Height</Label>
                 <Input
                   id="height"
-                  placeholder="e.g., 5'8\""
+                  placeholder="e.g., 5 feet 8 inches"
                   value={formData.height || ''}
                   onChange={(e) => updateFormData('height', e.target.value)}
                 />
